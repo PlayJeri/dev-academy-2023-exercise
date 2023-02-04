@@ -52,6 +52,6 @@ def search():
             station_name_finnish=search_item).first()
     
     if not station:
-        flash('not found')
+        flash('Ei asemaa tuolla nimellä', 'danger')
         return redirect(url_for('views.stations', page_num=1))
     return redirect(url_for('views.station', station_id=station.id))
