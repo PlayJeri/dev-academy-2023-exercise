@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from .extensions import db
 from .models import Rides, Stations
 
@@ -46,9 +46,12 @@ def station(station_id):
 
 @views.route('/search', methods=['POST'])
 def search():
-    search_item = request.form.get("search")
+    search_item = request.form.get("search").capitalize()
     print(search_item)
     station = Stations.query.filter_by(
             station_name_finnish=search_item).first()
     
+    if not station:
+        flash('not found')
+        return redirect(url_for('views.stations', page_num=1))
     return redirect(url_for('views.station', station_id=station.id))

@@ -8,11 +8,10 @@
         <div class="row py-4">
             <div class="col">Asema</div>
             <div class="col">Osoite</div>
-            <div class="col">ID</div>
             <div class="col">
                 <form class="d-flex" action="/search" method="post">
-                    <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="search" name="search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input class="form-control me-2" type="text" placeholder="Aseman nimi" aria-label="Search" id="search" name="search">
+                    <button class="btn btn-outline-success" type="submit">Etsi</button>
                 </form>
             </div>
         </div>
@@ -24,7 +23,6 @@
         <div class="row">
             <div class="col"><a href="{{ url_for('views.station', station_id=station.id) }}">{{ station.station_name_finnish }}</a></div>
             <div class="col">{{ station.address_finnish }}</div>
-            <div class="col">{{ station.id }}</div>
             <div class="col"></div>
         </div>
         
