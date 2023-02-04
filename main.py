@@ -9,7 +9,7 @@ app = create_app()
 date_format = "%Y-%m-%dT%H:%M:%S"
 
 with app.app_context():
-    with open('csv_files/2021-05.csv', 'r') as file:
+    with open('csv_files/2021-07.csv', 'r') as file:
         reader = csv.reader(file)
         header = next(reader, None)
         error_counter = 0
