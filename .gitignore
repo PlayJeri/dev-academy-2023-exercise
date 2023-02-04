@@ -1,0 +1,11 @@
+.venv/.env
+.instance
+.instance/city_bike.db
+README.md
+csv_files
+csv_files/2021-05.csv
+csv_files/2021-06.csv
+csv_files/2021-07.csv
+csv_files/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv
+instance
+instance/city_bike.db
