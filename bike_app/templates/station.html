@@ -6,16 +6,18 @@
     <div class="container">
         
         <div class="row">
-            <div class="col">Asema</div>
-            <div class="col">Osoite</div>
-            <div class="col">ID</div>
+            <div class="col">Station name</div>
+            <div class="col">Station address</div>
+            <div class="col">Rides started from this station</div>
+            <div class="col">Rides ended to this station</div>
         </div>
         
         <br>
         <div class="row">
             <div class="col">{{ station.station_name_finnish }}</div>
             <div class="col">{{ station.capacity }}</div>
-            <div class="col">{{ station.id }}</div>
+            <div class="col">{{ started_rides }}</div>
+            <div class="col">{{ ended_rides }}</div>
         </div>
 
     </div>

@@ -32,16 +32,16 @@ def rides(page_num):
 def stations(page_num):
     stations = Stations.query.paginate(per_page=50, page=page_num, error_out=True)
 
-
-
     return render_template('stations.html', stations=stations)
 
 
 @views.route('/station/<int:station_id>')
 def station(station_id):
     station = Stations.query.filter_by(id=station_id).first()
+    started_rides = Rides.query.filter_by(departure_station_id=station_id).count()
+    ended_rides = Rides.query.filter_by(return_station_id=station_id).count()
 
-    return render_template('station.html', station=station)
+    return render_template('station.html', station=station, started_rides=started_rides, ended_rides=ended_rides)
 
 
 @views.route('/search', methods=['POST'])
@@ -52,6 +52,6 @@ def search():
             station_name_finnish=search_item).first()
     
     if not station:
-        flash('Ei asemaa tuolla nimellä', 'danger')
+        flash('Station not found', 'warning')
         return redirect(url_for('views.stations', page_num=1))
     return redirect(url_for('views.station', station_id=station.id))
