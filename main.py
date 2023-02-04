@@ -1,5 +1,5 @@
 from bike_app.extensions import db
-from bike_app.models import Rides
+from bike_app.models import Rides, Stations
 from bike_app import create_app
 from datetime import datetime
 import csv
@@ -31,3 +31,32 @@ with app.app_context():
                 error_counter+=1
         print(f'{error_counter} rows of data discarded')        
         db.session.commit()
+
+
+with app.app_context():
+    with open('csv_files/asemat.csv', 'r') as file:
+        reader = csv.reader(file)
+        header = next(reader, None)
+        error_counter = 0
+        for row in reader:
+            try:
+                new_station = Stations(
+                        station_id = int(row[1]),
+                        station_name_finnish = row[2],
+                        station_name_swedish = row[3],
+                        station_name_english = row[4],
+                        address_finnish = row[5],
+                        address_swedish = row[6],
+                        city_finnish = row[7],
+                        city_swedish = row[8],
+                        operator = row[9],
+                        capacity = int(row[10]),
+                        x_coordinate = float(row[11]),
+                        y_coordinate = float(row[12]))
+                db.session.add(new_station)
+            except Exception as e:
+                error_counter+=1
+                print(e)
+        print(f'{error_counter} rows of data discarded')
+        db.session.commit()
+            

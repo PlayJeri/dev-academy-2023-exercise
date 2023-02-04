@@ -26,3 +26,10 @@ def rides(page_num):
         rides = Rides.query.paginate(per_page=50, page=page_num, error_out=True)
 
     return render_template('rides.html', rides=rides)
+
+
+@views.route('/stations')
+def stations():
+    stations = "kaki"
+
+    return render_template('stations.html')
