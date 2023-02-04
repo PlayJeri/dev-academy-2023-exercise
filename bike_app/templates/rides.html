@@ -4,43 +4,41 @@
 
 {% block content %}
     <div class="container">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Starting station</th>
+                <th scope="col">Return station</th>
+                <th scope="col">Distance in km</th>
+                <th scope="col">Duration in minutes</th>
+              </tr>
+            </thead>
+            {% for ride in rides.items %}
+            <tbody>
+              <tr>
+                <td>{{ ride.departure_station_name }}</td>
+                <td>{{ ride.return_station_name }}</td>
+                <td>{{ (ride.covered_distance_meters / 1000) | round(2) }} km</td>
+                <td>{{ (ride.duration_seconds / 60) | round | int }} min</td>
+              </tr>
+            </tbody>
+            {% endfor %} 
+          </table>
         
-        <div class="row">
-            <div class="col">Starting station</div>
-            <div class="col">Return station</div>
-            <div class="col">Distance in km</div>
-            <div class="col">Duration in minutes</div>
-        </div>
         
-        <br>
-        
-        {% for ride in rides.items %}
-        
-        <div class="row">
-            <div class="col">{{ ride.departure_station_name }}</div>
-            <div class="col">{{ ride.return_station_name }}</div>
-            <div class="col">{{ (ride.covered_distance_meters / 1000) | round(2) }} km</div>
-            <div class="col">{{ (ride.duration_seconds / 60) | round | int }} min</div>
-        </div>
-        
-        {% endfor %} 
-        
-        
-        {% for page in rides.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
-        
-        {% if page %}
-        <a href="{{ url_for('views.rides', page_num=page) }}">{{ page }}</a>
-        {% else %}
-        ...
-        {% endif %}
-        
-        {% endfor %}
-        <div class="row mt-3">
-            <div class="col-6">
-                <a href="{{ url_for('views.rides', page_num=rides.page, sort='desc') }}" class="btn btn-primary">Desceding order</a>
+          <div class="row mt-3 justify-content-center">
+          {% for page in rides.iter_pages(left_edge=0, right_edge=0, left_current=1, right_current=1) %}
+          
+          {% if page %}
+          <div class="col-1"><a href="{{ url_for('views.rides', page_num=page) }}"><div class="btn btn-outline-primary">{{ page }}</div></a></div>
+          {% endif %}
+          
+          {% endfor %}
+            <div class="col-3">
+                <a href="{{ url_for('views.rides', page_num=rides.page, sort='desc') }}" class="btn btn-primary">Longest rides</a>
             </div>
-            <div class="col-6">
-                <a href="{{ url_for('views.rides', page_num=rides.page, sort='asc') }}" class="btn btn-primary">Ascending order</a>
+            <div class="col-3">
+                <a href="{{ url_for('views.rides', page_num=rides.page, sort='asc') }}" class="btn btn-primary">Shortest rides</a>
             </div>
         </div>
     </div>

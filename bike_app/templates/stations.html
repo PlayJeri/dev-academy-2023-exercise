@@ -3,10 +3,10 @@
 {% block title %}All Rides{% endblock %}
 
 {% block content %}
-    <div class="container justify-content-center">
-        <div class="row justify-content-center my-6">
-            <form class="col-6 mt-6" action="/search" method="post">
-                <input class="form-control me-2" type="text" placeholder="Station name" aria-label="Search" id="search" name="search">
+    <div class="container">
+        <div class="row justify-content-center">
+            <form class="d-flex col-3" action="/search" method="post">
+                <input class="form-control" type="text" placeholder="Station name" aria-label="Search" id="search" name="search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
@@ -30,14 +30,15 @@
             </table>
         </div>
         
-        {% for page in stations.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+        <div class="row mt-3 justify-content-center">
+        {% for page in stations.iter_pages(left_edge=0, right_edge=0, left_current=1, right_current=1) %}
         
         {% if page %}
-        <a href="{{ url_for('views.stations', page_num=page) }}">{{ page }}</a>
+        <div class="col-1"><a href="{{ url_for('views.stations', page_num=page) }}"><div class="btn btn-outline-primary">{{ page }}</div></a></div>
         {% else %}
-        ...
         {% endif %}
         
         {% endfor %}
+        </div>
     </div>
 {% endblock %}

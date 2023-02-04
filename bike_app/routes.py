@@ -18,13 +18,13 @@ def rides(page_num):
     if sort_order == 'desc':
         rides = Rides.query.order_by(
             Rides.covered_distance_meters.desc()
-            ).paginate(per_page=50, page=page_num, error_out=True)
+            ).paginate(per_page=25, page=page_num, error_out=True)
     elif sort_order == 'asc':
         rides = Rides.query.order_by(
             Rides.covered_distance_meters.asc()
-            ).paginate(per_page=50, page=page_num, error_out=True)
+            ).paginate(per_page=25, page=page_num, error_out=True)
     else:
-        rides = Rides.query.paginate(per_page=50, page=page_num, error_out=True)
+        rides = Rides.query.paginate(per_page=25, page=page_num, error_out=True)
 
     return render_template('rides.html', rides=rides)
 
@@ -41,6 +41,7 @@ def station(station_id):
     station = Stations.query.filter_by(id=station_id).first()
     started_rides = Rides.query.filter_by(departure_station_id=station_id).count()
     ended_rides = Rides.query.filter_by(return_station_id=station_id).count()
+
     top5_return_stations = (
     Rides.query
     .with_entities(Rides.return_station_name, db.func.count(Rides.return_station_id).label('count'))
