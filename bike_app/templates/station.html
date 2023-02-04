@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}All Rides{% endblock %}
+
+{% block content %}
+    <div class="container">
+        
+        <div class="row">
+            <div class="col">Asema</div>
+            <div class="col">Osoite</div>
+            <div class="col">ID</div>
+        </div>
+        
+        <br>
+        <div class="row">
+            <div class="col">{{ station.station_name_finnish }}</div>
+            <div class="col">{{ station.capacity }}</div>
+            <div class="col">{{ station.id }}</div>
+        </div>
+
+    </div>
+{% endblock %}

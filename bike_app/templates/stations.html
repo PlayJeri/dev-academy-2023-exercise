@@ -8,6 +8,7 @@
         <div class="row">
             <div class="col">Asema</div>
             <div class="col">Osoite</div>
+            <div class="col">ID</div>
         </div>
         
         <br>
@@ -15,8 +16,9 @@
         {% for station in stations.items %}
         
         <div class="row">
-            <div class="col">{{ station.station_name_finnish }}</div>
+            <div class="col"><a href="{{ url_for('views.station', station_id=station.id) }}">{{ station.station_name_finnish }}</a></div>
             <div class="col">{{ station.address_finnish }}</div>
+            <div class="col">{{ station.id }}</div>
         </div>
         
         {% endfor %} 
@@ -25,7 +27,7 @@
         {% for page in stations.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
         
         {% if page %}
-        <a href="{{ url_for('views.rides', page_num=page) }}">{{ page }}</a>
+        <a href="{{ url_for('views.stations', page_num=page) }}">{{ page }}</a>
         {% else %}
         ...
         {% endif %}

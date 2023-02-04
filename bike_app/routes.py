@@ -33,3 +33,10 @@ def stations(page_num):
     stations = Stations.query.paginate(per_page=50, page=page_num, error_out=True)
 
     return render_template('stations.html', stations=stations)
+
+
+@views.route('/station/<int:station_id>')
+def station(station_id):
+    station = Stations.query.filter_by(id=station_id).first()
+
+    return render_template('station.html', station=station)
