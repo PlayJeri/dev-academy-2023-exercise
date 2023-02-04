@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from .extensions import db
 from .models import Rides, Stations
+from sqlalchemy import desc
 
 
 views = Blueprint('views', __name__)
@@ -40,8 +41,32 @@ def station(station_id):
     station = Stations.query.filter_by(id=station_id).first()
     started_rides = Rides.query.filter_by(departure_station_id=station_id).count()
     ended_rides = Rides.query.filter_by(return_station_id=station_id).count()
+    top5_return_stations = (
+    Rides.query
+    .with_entities(Rides.return_station_name, db.func.count(Rides.return_station_id).label('count'))
+    .filter(Rides.departure_station_id == station_id)
+    .group_by(Rides.return_station_id)
+    .order_by(desc('count'))
+    .limit(5)
+    .all()
+)
+    top5_departure_stations = (
+        Rides.query
+        .with_entities(Rides.departure_station_name, db.func.count(Rides.departure_station_id).label('count'))
+        .filter(Rides.return_station_id == station_id)
+        .group_by(Rides.departure_station_id)
+        .order_by(desc('count'))
+        .limit(5)
+        .all()
+    )
 
-    return render_template('station.html', station=station, started_rides=started_rides, ended_rides=ended_rides)
+    return render_template(
+        'station.html', 
+        station=station, 
+        started_rides=started_rides, 
+        ended_rides=ended_rides, 
+        top5_returns=top5_return_stations,
+        top5_departures=top5_departure_stations)
 
 
 @views.route('/search', methods=['POST'])

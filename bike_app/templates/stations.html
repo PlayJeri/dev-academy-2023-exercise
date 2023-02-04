@@ -3,31 +3,32 @@
 {% block title %}All Rides{% endblock %}
 
 {% block content %}
-    <div class="container">
-        
-        <div class="row py-4">
-            <div class="col">Station</div>
-            <div class="col">Address</div>
-            <div class="col">
-                <form class="d-flex" action="/search" method="post">
-                    <input class="form-control me-2" type="text" placeholder="Station name" aria-label="Search" id="search" name="search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
+    <div class="container justify-content-center">
+        <div class="row justify-content-center my-6">
+            <form class="col-6 mt-6" action="/search" method="post">
+                <input class="form-control me-2" type="text" placeholder="Station name" aria-label="Search" id="search" name="search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
-        
         <br>
-        
-        {% for station in stations.items %}
-        
         <div class="row">
-            <div class="col"><a href="{{ url_for('views.station', station_id=station.id) }}">{{ station.station_name_finnish }}</a></div>
-            <div class="col">{{ station.address_finnish }}</div>
-            <div class="col"></div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Station name</th>
+                        <th scope="col">Station address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for station in stations.items %}
+                    <tr>
+                        <td><a href="{{ url_for('views.station', station_id=station.id) }}">{{ station.station_name_finnish }}</a></td>
+                        <td>{{ station.address_finnish }}</td>
+                    </tr>
+                    {% endfor %} 
+                </tbody>
+            </table>
         </div>
-        
-        {% endfor %} 
-        
         
         {% for page in stations.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
         

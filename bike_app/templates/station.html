@@ -3,22 +3,46 @@
 {% block title %}All Rides{% endblock %}
 
 {% block content %}
-    <div class="container">
-        
-        <div class="row">
-            <div class="col">Station name</div>
-            <div class="col">Station address</div>
-            <div class="col">Rides started from this station</div>
-            <div class="col">Rides ended to this station</div>
-        </div>
-        
-        <br>
-        <div class="row">
-            <div class="col">{{ station.station_name_finnish }}</div>
-            <div class="col">{{ station.capacity }}</div>
-            <div class="col">{{ started_rides }}</div>
-            <div class="col">{{ ended_rides }}</div>
-        </div>
+        <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Station name</th>
+                <th scope="col">Station address</th>
+                <th scope="col">Rides started from this station</th>
+                <th scope="col">Rides ended to this station</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ station.station_name_finnish }}</td>
+                <td>{{ station.capacity }}</td>
+                <td>{{ started_rides }}</td>
+                <td>{{ ended_rides }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="row justify-content-center align-items-center">
+              <ul class="list-group col-4">
+                  <li class="list-group-item d-flex justify-content-center align-items-center">Top 5 return stations and number of rides</li>
+                  {% for top_return_station in top5_returns %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                      {{ top_return_station[0] }}
+                      <span class="badge bg-danger rounded-pill">{{ top_return_station[1] }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <ul class="list-group col-4">
+                    <li class="list-group-item d-flex justify-content-center align-items-center">Top 5 departure stations and number of rides</li>
+                    {% for top_departure_station in top5_departures %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ top_departure_station[0] }}
+                        <span class="badge bg-danger rounded-pill">{{ top_departure_station[1] }}</span>
+                      </li>
+                      {% endfor %}
+                  </ul>
+            </div>
+          
 
     </div>
 {% endblock %}
