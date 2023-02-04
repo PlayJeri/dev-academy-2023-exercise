@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from .extensions import db
-from .models import Rides
+from .models import Rides, Stations
 
 
 views = Blueprint('views', __name__)
@@ -28,8 +28,8 @@ def rides(page_num):
     return render_template('rides.html', rides=rides)
 
 
-@views.route('/stations')
-def stations():
-    stations = "kaki"
+@views.route('/stations/<int:page_num>')
+def stations(page_num):
+    stations = Stations.query.paginate(per_page=50, page=page_num, error_out=True)
 
-    return render_template('stations.html')
+    return render_template('stations.html', stations=stations)

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}All Rides{% endblock %}
+
+{% block content %}
+    <div class="container">
+        
+        <div class="row">
+            <div class="col">Asema</div>
+            <div class="col">Osoite</div>
+        </div>
+        
+        <br>
+        
+        {% for station in stations.items %}
+        
+        <div class="row">
+            <div class="col">{{ station.station_name_finnish }}</div>
+            <div class="col">{{ station.address_finnish }}</div>
+        </div>
+        
+        {% endfor %} 
+        
+        
+        {% for page in stations.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+        
+        {% if page %}
+        <a href="{{ url_for('views.rides', page_num=page) }}">{{ page }}</a>
+        {% else %}
+        ...
+        {% endif %}
+        
+        {% endfor %}
+    </div>
+{% endblock %}
