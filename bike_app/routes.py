@@ -28,9 +28,11 @@ def rides(page_num):
     return render_template('rides.html', rides=rides)
 
 
-@views.route('/stations/<int:page_num>')
+@views.route('/stations/<int:page_num>', methods=['GET', 'POST'])
 def stations(page_num):
     stations = Stations.query.paginate(per_page=50, page=page_num, error_out=True)
+
+
 
     return render_template('stations.html', stations=stations)
 
@@ -40,3 +42,13 @@ def station(station_id):
     station = Stations.query.filter_by(id=station_id).first()
 
     return render_template('station.html', station=station)
+
+
+@views.route('/search', methods=['POST'])
+def search():
+    search_item = request.form.get("search")
+    print(search_item)
+    station = Stations.query.filter_by(
+            station_name_finnish=search_item).first()
+    
+    return redirect(url_for('views.station', station_id=station.id))
