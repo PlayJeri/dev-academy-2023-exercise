@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}All Rides{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">Lähtöasema</div>
+            <div class="col">Pääteasema</div>
+            <div class="col">Matka metreinä</div>
+            <div class="col">Matkan kesto sekunteina</div>
+        </div>
+
+        <br>
+
+        {% for ride in rides.items %}
+
+            <div class="row">
+                <div class="col">{{ ride.departure_station_name }}</div>
+                <div class="col">{{ ride.return_station_name }}</div>
+                <div class="col">{{ (ride.covered_distance_meters / 1000) | round(1) }} km</div>
+                <div class="col">{{ (ride.duration_seconds / 60) | round | int }} min</div>
+            </div>
+
+        {% endfor %} 
+
+
+        {% for page in rides.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+
+            {% if page %}
+                <a href="{{ url_for('views.rides', page_num=page) }}">{{ page }}</a>
+            {% else %}
+                ...
+            {% endif %}
+
+        {% endfor %}
+    </div>
+{% endblock %}
