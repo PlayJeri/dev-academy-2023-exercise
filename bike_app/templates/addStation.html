@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Station{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        <div class="container py-4 text-center">
+            <div class="row justify-content-center">
+                <h1 class="text-al">Add Station</h1>
+            </div>
+            <div class="row py-2 justify-content-center">
+                <div class="col-5">
+                    {{ form.hidden_tag() }}
+                    {{ form.station_id.label(class="form-label") }}
+                    {{ form.station_id(class="form-control") }}
+                </div>
+                <div class="row py-2 justify-content-center">
+                    <div class="col-5">
+                        {{ form.hidden_tag() }}
+                        {{ form.station_name_finnish.label(class="form-label") }}
+                        {{ form.station_name_finnish(class="form-control") }}
+                    </div>
+                    <div class="row py-2 justify-content-center">
+                        <div class="col-5">
+                            {{ form.station_name_swedish.label(class="form-label") }}
+                            {{ form.station_name_swedish(class="form-control") }}
+                        </div>
+                        <div class="row py-2 justify-content-center">
+                            <div class="col-5">
+                                {{ form.station_name_english.label(class="form-label") }}
+                                {{ form.station_name_english(class="form-control") }}
+                            </div>
+                            <div class="row py-2 justify-content-center">
+                                <div class="col-5">
+                                    {{ form.address_finnish.label(class="form-label") }}
+                                    {{ form.address_finnish(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row py-2 justify-content-center">
+                                <div class="col-5">
+                                    {{ form.address_swedish.label(class="form-label") }}
+                                    {{ form.address_swedish(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row py-2 justify-content-center">
+                                <div class="col-5">
+                                    {{ form.city_finnish.label(class="form-label") }}
+                                    {{ form.city_finnish(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row py-2 justify-content-center">
+                                <div class="col-5">
+                                    {{ form.city_swedish.label(class="form-label") }}
+                                    {{ form.city_swedish(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row py-2 justify-content-center">
+                                <div class="col-5">
+                                    {{ form.operator.label(class="form-label") }}
+                                    {{ form.operator(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row py-2 justify-content-center">
+                                <div class="col-5">
+                                    {{ form.capacity.label(class="form-label") }}
+                                    {{ form.capacity(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row py-2 justify-content-center">
+                                <div class="col-5">
+                                    {{ form.x_coordinate.label(class="form-label") }}
+                                    {{ form.x_coordinate(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row py-2 justify-content-center">
+                                <div class="col-5">
+                                    {{ form.y_coordinate.label(class="form-label") }}
+                                    {{ form.y_coordinate(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row py-2 justify-content-center">
+                                <div class="col-5">
+                                    {{ form.submit(class="btn btn-primary") }}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                    {% endblock %}

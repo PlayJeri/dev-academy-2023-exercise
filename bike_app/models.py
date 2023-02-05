@@ -15,7 +15,7 @@ class Rides(db.Model):
 
 class Stations(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    station_id = db.Column(db.Integer)
+    station_id = db.Column(db.Integer, unique=True)
     station_name_finnish = db.Column(db.String)
     station_name_swedish = db.Column(db.String)
     station_name_english = db.Column(db.String)
