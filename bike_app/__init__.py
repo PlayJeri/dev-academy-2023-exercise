@@ -1,6 +1,8 @@
 from flask import Flask
 from .extensions import db, login_manager
 from .routes import views
+from .admin_routes import auth
+from .models import Users
 from dotenv import load_dotenv
 import os
 
@@ -16,6 +18,7 @@ def create_app(database_uri='sqlite:///city_bike.db'):
     db.init_app(app)
 
     app.register_blueprint(views)
+    app.register_blueprint(auth)
 
     login_manager.login_view='auth.login'
     login_manager.init_app(app)

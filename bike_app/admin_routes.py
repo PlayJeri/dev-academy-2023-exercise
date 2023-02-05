@@ -18,7 +18,7 @@ def login():
         if user:
             if check_password_hash(user.password, form.password.data):
                 login_user(user)
-                return redirect(url_for())
+                return redirect(url_for('auth.admin'))
         else:
             flash('username or password wrong!', 'danger')
 
