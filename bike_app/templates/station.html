@@ -1,48 +1,84 @@
-{% extends 'base.html' %}
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Station</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}"></script>
+    <script>
+        function initMap() {
+          var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: {{ station.y_coordinate }}, lng: {{ station.x_coordinate }}},
+            zoom: 8
+          });
 
-{% block title %}All Rides{% endblock %}
+          var marker = new google.maps.Marker({
+            position: {lat: {{ station.y_coordinate }}, lng: {{ station.x_coordinate }}},
+            map: map,
+            title: 'Hello World!'
+          });
+        }
+    </script>
+  </head>
+  <body onload="initMap()">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Station name</th>
+            <th scope="col">Station address</th>
+            <th scope="col">Rides started from this station</th>
+            <th scope="col">Rides ended to this station</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ station.station_name_finnish }}</td>
+            <td>{{ station.capacity }}</td>
+            <td>{{ started_rides }}</td>
+            <td>{{ ended_rides }}</td>
+          </tr>
+        </tbody>
+      </table>
 
-{% block content %}
-        <table class="table table-sm">
-            <thead>
-              <tr>
-                <th scope="col">Station name</th>
-                <th scope="col">Station address</th>
-                <th scope="col">Rides started from this station</th>
-                <th scope="col">Rides ended to this station</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{ station.station_name_finnish }}</td>
-                <td>{{ station.capacity }}</td>
-                <td>{{ started_rides }}</td>
-                <td>{{ ended_rides }}</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="row justify-content-center align-items-center">
+          <ul class="list-group col-4">
+              <li class="list-group-item d-flex justify-content-center align-items-center">Top 5 return stations and number of rides</li>
+              {% for top_return_station in top5_returns %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ top_return_station[0] }}
+                  <span class="badge bg-danger rounded-pill">{{ top_return_station[1] }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            <ul class="list-group col-4">
+                <li class="list-group-item d-flex justify-content-center align-items-center">Top 5 departure stations and number of rides</li>
+                {% for top_departure_station in top5_departures %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ top_departure_station[0] }}
+                    <span class="badge bg-danger rounded-pill">{{ top_departure_station[1] }}</span>
+                  </li>
+                  {% endfor %}
+              </ul>
+        </div>
+      
+        <div id="map" style="height: 500px; width: 100%;"></div>
+</div>
 
-          <div class="row justify-content-center align-items-center">
-              <ul class="list-group col-4">
-                  <li class="list-group-item d-flex justify-content-center align-items-center">Top 5 return stations and number of rides</li>
-                  {% for top_return_station in top5_returns %}
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                      {{ top_return_station[0] }}
-                      <span class="badge bg-danger rounded-pill">{{ top_return_station[1] }}</span>
-                    </li>
-                    {% endfor %}
-                </ul>
-                <ul class="list-group col-4">
-                    <li class="list-group-item d-flex justify-content-center align-items-center">Top 5 departure stations and number of rides</li>
-                    {% for top_departure_station in top5_departures %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ top_departure_station[0] }}
-                        <span class="badge bg-danger rounded-pill">{{ top_departure_station[1] }}</span>
-                      </li>
-                      {% endfor %}
-                  </ul>
-            </div>
-          
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9J7FwEuw9u352d7O0TgQ7lKKt8wGsxfk&callback=initMap">
+</script>
+  </body>
+</html>
 
-    </div>
-{% endblock %}

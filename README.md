@@ -26,7 +26,7 @@ Endpoints
 
 /stations: Display the list of bike stations
 
-/station: Display more detailed information about a single station
+/station: Display more detailed information and location on map of a single station
 
 /rides: Display a list with rides and ride info
 
