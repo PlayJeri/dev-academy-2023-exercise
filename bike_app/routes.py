@@ -2,13 +2,15 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from .extensions import db
 from .models import Rides, Stations
 from sqlalchemy import desc
+import os
+
+API_KEY = os.getenv('API_KEY')
 
 
 views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
-
     return render_template('home.html', url=url_for)
 
 
@@ -67,7 +69,8 @@ def station(station_id):
         started_rides=started_rides, 
         ended_rides=ended_rides, 
         top5_returns=top5_return_stations,
-        top5_departures=top5_departure_stations)
+        top5_departures=top5_departure_stations,
+        API_KEY=API_KEY)
 
 
 @views.route('/search', methods=['POST'])
