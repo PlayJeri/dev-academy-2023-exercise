@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_user, logout_user, login_required
 from .extensions import db
 from .models import Users
-from .forms import LoginForm
+from .forms import LoginForm, CreateStationForm
 from werkzeug.security import check_password_hash
 
 auth = Blueprint('auth', __name__)
@@ -26,9 +26,20 @@ def login():
 
 
 
-@auth.route('/admin', methods=['GET', 'POST'])
+@auth.route('/admin')
+@login_required
 def admin():
 
 
 
     return render_template('admin.html')
+
+
+@auth.route('/addStation', methods=['GET', 'POST'])
+@login_required
+def add_station():
+
+    form = CreateStationForm()
+
+
+    return render_template('addStation.html', form=form)
