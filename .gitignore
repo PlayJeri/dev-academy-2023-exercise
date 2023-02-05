@@ -1,4 +1,4 @@
-.venv/.env
+.venv
 .instance
 .instance/city_bike.db
 csv_files
@@ -9,3 +9,5 @@ csv_files/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv
 instance
 instance/city_bike.db
 .pytest_cache
+.vscode
+.env
