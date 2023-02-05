@@ -9,3 +9,4 @@ csv_files/2021-07.csv
 csv_files/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv
 instance
 instance/city_bike.db
+.pytest_cache

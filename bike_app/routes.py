@@ -43,14 +43,14 @@ def station(station_id):
     ended_rides = Rides.query.filter_by(return_station_id=station_id).count()
 
     top5_return_stations = (
-    Rides.query
-    .with_entities(Rides.return_station_name, db.func.count(Rides.return_station_id).label('count'))
-    .filter(Rides.departure_station_id == station_id)
-    .group_by(Rides.return_station_id)
-    .order_by(desc('count'))
-    .limit(5)
-    .all()
-)
+        Rides.query
+        .with_entities(Rides.return_station_name, db.func.count(Rides.return_station_id).label('count'))
+        .filter(Rides.departure_station_id == station_id)
+        .group_by(Rides.return_station_id)
+        .order_by(desc('count'))
+        .limit(5)
+        .all()
+    )
     top5_departure_stations = (
         Rides.query
         .with_entities(Rides.departure_station_name, db.func.count(Rides.departure_station_id).label('count'))
