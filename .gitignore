@@ -1,7 +1,6 @@
 .venv/.env
 .instance
 .instance/city_bike.db
-README.md
 csv_files
 csv_files/2021-05.csv
 csv_files/2021-06.csv
