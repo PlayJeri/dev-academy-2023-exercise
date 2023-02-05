@@ -73,10 +73,9 @@ def station(station_id):
 @views.route('/search', methods=['POST'])
 def search():
     search_item = request.form.get("search").capitalize()
-    print(search_item)
     station = Stations.query.filter_by(
             station_name_finnish=search_item).first()
-    
+
     if not station:
         flash('Station not found', 'warning')
         return redirect(url_for('views.stations', page_num=1))

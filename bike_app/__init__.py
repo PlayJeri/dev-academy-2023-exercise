@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 
 
-def create_app(database_uri="sqlite:///city_bike"):
+def create_app(database_uri='sqlite:///city_bike.db'):
 
     # App config
     app = Flask(__name__)
