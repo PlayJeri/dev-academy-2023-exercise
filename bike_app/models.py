@@ -1,4 +1,5 @@
 from .extensions import db
+from flask_login import UserMixin
 
 class Rides(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,3 +27,8 @@ class Stations(db.Model):
     capacity = db.Column(db.Integer)
     x_coordinate = db.Column(db.Float)
     y_coordinate = db.Column(db.Float)
+
+class Users(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, unique=True)
+    password = db.Column(db.String)
